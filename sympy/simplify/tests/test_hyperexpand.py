@@ -426,6 +426,15 @@ def test_meijerg_expand():
     assert hyperexpand(f, place=0) == sqrt(pi)*z/sqrt(z**2 + 1)
 
 
+def test_meijerg_continuity_at_one():
+    for parameter in (S.Half, S.One):
+        function = meijerg([], [parameter], [0], [], 1)
+        assert hyperexpand(function) == function
+
+    for parameter in (2, 3):
+        assert hyperexpand(meijerg([], [parameter], [0], [], 1)) == 0
+
+
 def test_meijerg_lookup():
     from sympy.functions.special.error_functions import (Ci, Si)
     from sympy.functions.special.gamma_functions import uppergamma
